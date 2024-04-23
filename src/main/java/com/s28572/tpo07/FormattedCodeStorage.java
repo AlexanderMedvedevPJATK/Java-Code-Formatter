@@ -4,19 +4,21 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class FormattedCodeStorage {
+    private final Map<String, byte[]> formattedCodeMap = new HashMap<>();
 
-    private int id = 1;
-    private final Map<Integer, String> formattedCodeMap = new HashMap<>();
-
-    public void addFormattedCode(int id, String formattedCode) {
+    public void addFormattedCode(String id, byte[] formattedCode) {
         formattedCodeMap.put(id, formattedCode);
-        this.id++;
     }
 
-    public String getFormattedCode(int id) {
-        return formattedCodeMap.get(id);
+    public Optional<byte[]> getFormattedCode(String id) {
+        if (!formattedCodeMap.containsKey(id)) {
+            System.out.println("No formatted code with id: " + id);
+            return Optional.empty();
+        }
+        return Optional.ofNullable(formattedCodeMap.get(id));
     }
 }

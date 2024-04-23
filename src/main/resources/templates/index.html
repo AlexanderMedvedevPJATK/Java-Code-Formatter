@@ -31,26 +31,51 @@
     <div class="row">
         <div class="col-md-4">
             <h1>Java Code Input</h1>
-            <form action="/formatCode" method="POST">
+            <form th:action="@{/formatCode}" method="POST">
                 <div class="form-group">
-                    <label for="javaCode">Initial Java Code:</label>
-                    <textarea class="form-control dashed-border" id="javaCode" name="javaCode" rows="10"></textarea>
+                    <label for="sourceCode">Initial Java Code:</label>
+                    <textarea class="form-control dashed-border" id="sourceCode" name="sourceCode" rows="10"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
         <div class="col-md-8">
             <h1>Results</h1>
-            <form action="/saveFormattedCode" method="POST">
+            <form th:action="@{/saveFormattedCode}" method="POST">
                 <div class="form-group">
-                    <label for="formattedJavaCode">Formatted Java Code:</label>
+                    <label for="formattedCode">Formatted Java Code:</label>
                     <textarea class="form-control dashed-border non-selectable"
-                              id="formattedJavaCode"
+                              id="formattedCode"
+                              name="formattedCode"
                               rows="10"
                               th:text="${formattedCode}"
                               readonly>
                     </textarea>
                 </div>
+                <h4>Select Time Range</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="id">Text ID:</label>
+                        <input type="text" id="id" name="id" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="days">Days:</label>
+                        <input type="number" id="days" name="days" class="form-control" min="1" max="90">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="hours">Hours:</label>
+                        <input type="number" id="hours" name="hours" class="form-control" min="1" max="23">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="minutes">Minutes:</label>
+                        <input type="number" id="minutes" name="minutes" class="form-control" min="1" max="59">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="seconds">Seconds:</label>
+                        <input type="number" id="seconds" name="seconds" class="form-control" min="10" max="59" required>
+                    </div>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
         </div>

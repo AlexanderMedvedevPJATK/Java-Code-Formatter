@@ -3,9 +3,7 @@ package com.s28572.tpo07;
 import com.google.googlejavaformat.java.FormatterException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -28,7 +26,7 @@ public class FormatterController {
     }
 
     @PostMapping("/formatCode")
-    public String formatCode(@RequestParam("javaCode") String sourceCode, RedirectAttributes redirectAttributes) {
+    public String formatCode(@RequestParam("sourceCode") String sourceCode, RedirectAttributes redirectAttributes) {
         String result;
         try {
             result = formatterService.formatSource(sourceCode);
@@ -38,5 +36,17 @@ public class FormatterController {
 
         redirectAttributes.addFlashAttribute("formattedCode", result);
         return "redirect:/";
+    }
+
+    @PostMapping("/saveFormattedCode")
+    public String saveFormattedCode(@ModelAttribute SaveFormDTO saveFormDTO) {
+        formatterService.addFormattedCode(saveFormDTO.getId(), saveFormDTO.getFormattedCode());
+        return "redirect:/";
+    }
+
+    @GetMapping("/formattedCode/{id}")
+    public String getFormattedCode(@PathVariable("id") String id, Model model) {
+        model.addAttribute("formattedCode", formatterService.getFormattedCode(id).getCode());
+        return "index";
     }
 }
