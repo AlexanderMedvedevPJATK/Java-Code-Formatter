@@ -12,6 +12,19 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<String> handleFormattedCodeNotFoundException(NoSuchElementException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(String.format("""
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Item not found</title>
+                </head>
+                <body>
+                    <h1>Item not found</h1>
+                    <p>%s</p>
+                    <a href="/">Go back to the input form</a>
+                </body>
+                </html>
+                """, ex.getMessage()));
     }
 }
