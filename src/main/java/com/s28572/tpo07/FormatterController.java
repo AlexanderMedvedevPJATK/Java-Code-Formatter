@@ -40,13 +40,13 @@ public class FormatterController {
 
     @PostMapping("/saveFormattedCode")
     public String saveFormattedCode(@ModelAttribute SaveFormDTO saveFormDTO) {
-        formatterService.addFormattedCode(saveFormDTO.getId(), saveFormDTO.getFormattedCode());
+        formatterService.addFormattedCode(saveFormDTO);
         return "redirect:/";
     }
 
     @GetMapping("/formattedCode/{id}")
     public String getFormattedCode(@PathVariable("id") String id, Model model) {
-        model.addAttribute("formattedCode", formatterService.getFormattedCode(id).getCode());
+        model.addAttribute("formattedCode", formatterService.getFormattedCode(id));
         return "index";
     }
 }
