@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formatted code</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="form-group">
+        <h1>Formatted Java code</h1>
+        <textarea class="form-control dashed-border non-selectable"
+                 id="formattedCode"
+                 name="formattedCode"
+                 rows="25"
+                 th:text="${formattedCode}"
+                 readonly>
+        </textarea>
+        <button class="btn btn-primary mt-3" onclick="copyToClipboard()">Copy</button>
+    </div>
+</div>
+<script>
+    function copyToClipboard() {
+        const textarea = document.getElementById("formattedCode").value;
+        navigator.clipboard.writeText(textarea);
+    }
+</script>
+</body>
+</html>

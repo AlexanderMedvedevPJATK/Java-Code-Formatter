@@ -17,7 +17,7 @@ public class FormatterController {
 
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "formattingPage";
     }
 
     @GetMapping("formattingError")
@@ -26,14 +26,10 @@ public class FormatterController {
     }
 
     @PostMapping("/formatCode")
-    public String formatCode(@RequestParam("sourceCode") String sourceCode, RedirectAttributes redirectAttributes) {
-        String result;
-        try {
-            result = formatterService.formatSource(sourceCode);
-        } catch (FormatterException e) {
-            return "redirect:/formattingError";
-        }
+    public String formatCode(@RequestParam String sourceCode,
+                             RedirectAttributes redirectAttributes) throws FormatterException {
 
+        String result = formatterService.formatSource(sourceCode);
         redirectAttributes.addFlashAttribute("formattedCode", result);
         return "redirect:/";
     }
@@ -41,12 +37,12 @@ public class FormatterController {
     @PostMapping("/saveFormattedCode")
     public String saveFormattedCode(@ModelAttribute SaveFormDTO saveFormDTO) {
         formatterService.addFormattedCode(saveFormDTO);
-        return "redirect:/";
+        return "redirect:/formattedCode/" + saveFormDTO.getId();
     }
 
     @GetMapping("/formattedCode/{id}")
     public String getFormattedCode(@PathVariable("id") String id, Model model) {
         model.addAttribute("formattedCode", formatterService.getFormattedCode(id));
-        return "index";
+        return "savedCode";
     }
 }
