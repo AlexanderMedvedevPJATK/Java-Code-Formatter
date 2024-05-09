@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Fragments</title>
+</head>
+<body>
+<header th:fragment="myHeader">
+  <a class="logo" href="#" th:href="@{/}">
+    <img src="/images/logo.png" th:src="@{/images/logo.png}" alt="PJ Logo">
+  </a>
+</header>
+<footer class="mt-2" th:fragment="myFooter">
+  TPO @ PJAIT ©2024
+</footer>
+</body>
+</html>

@@ -1,36 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title>Java Code Input Form</title>
-
-    <style>
-        .dashed-border {
-            border: 1px dashed rgba(0, 0, 0, 0.7);
-            padding: 10px;
-        }
-
-        #invalid-time-range {
-            display: none;
-            color: red;
-            margin-bottom: 1rem;
-        }
-
-        .non-selectable:focus {
-            outline: none;
-            box-shadow: none;
-            border-color: black;
-        }
-
-        @media (min-width: 1700px) {
-            .container {
-                min-width: 1650px;
-            }
-        }
-    </style>
 </head>
 <body>
-<div class="container">
+<main layout:fragment="content">
     <div class="row">
         <div class="col-md-4">
             <h1>Java Code Input</h1>
@@ -51,11 +27,11 @@
                               id="formattedCode"
                               name="formattedCode"
                               rows="10"
-                              th:text="${formattedCode}"
+                              th:text="${formattedCode.getFormattedCode()}"
                               readonly>
-                    </textarea>
+                </textarea>
                 </div>
-                <div class="saving" th:if="${formattedCode}">
+                <div class="saving" th:if="${formattedCode.getFormattedCode()}">
                     <h4>Select Time Range</h4>
                     <div class="form-row">
                         <div class="form-group col-md-2">
@@ -85,7 +61,7 @@
             </form>
         </div>
     </div>
-</div>
+</main>
 
 <script>
     function validateForm() {

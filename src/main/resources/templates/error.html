@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${errorTitle}"></title>
+</head>
+<body>
+<main layout:fragment="content">
+    <div class="error-content">
+        <h1 th:text="${errorHeading}" class="mb-3"></h1>
+        <p th:text="${errorMessage}"></p>
+        <a href="/codeFormatter">Go back to the input form</a>
+    </div>
+</main>
+</body>
+</html>

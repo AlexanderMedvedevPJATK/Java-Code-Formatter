@@ -36,7 +36,7 @@ public class FormattedCodeStorage {
 
     public Optional<String> getFormattedCode(String id) {
         if (!formattedCodeMap.containsKey(id)) {
-            System.out.println("No formatted code with id: " + id);
+            System.out.println("No formatted code with id---: " + id);
             return Optional.empty();
         }
         return Optional.ofNullable(formattedCodeMap.get(id).getFormattedCode());
@@ -52,12 +52,30 @@ public class FormattedCodeStorage {
     }
 
     private Map<String, FormattedCode> deserializeData() {
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(SERIALIZED_DATA_FILE))) {
+        File file = new File(SERIALIZED_DATA_FILE);
+        if (createNewFileIfDoesntExist(file)) {
+            return new ConcurrentHashMap<>();
+        }
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file))) {
             return (ConcurrentHashMap<String, FormattedCode>) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return new ConcurrentHashMap<>();
         }
+    }
+
+    private static boolean createNewFileIfDoesntExist(File file) {
+        try {
+            if (!file.exists()) {
+                if (!file.createNewFile()) {
+                    throw new RuntimeException("Could not create file: " + file.getName());
+                }
+                return true;  // file was created
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private void checkDataExpirationDate() {

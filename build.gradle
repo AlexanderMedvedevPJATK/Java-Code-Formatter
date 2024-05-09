@@ -21,6 +21,7 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'com.google.googlejavaformat:google-java-format:1.22.0'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.3.0'
 }
 
 tasks.named('test') {

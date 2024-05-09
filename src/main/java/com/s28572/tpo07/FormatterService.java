@@ -29,6 +29,7 @@ public class FormatterService {
     }
 
     public String getFormattedCode(String id) {
+        System.out.println("SERVICE CALLED");
         return formattedCodeStorage
                 .getFormattedCode(id)
                 .orElseThrow(() -> new NoSuchElementException("No formatted code with id: " + id));

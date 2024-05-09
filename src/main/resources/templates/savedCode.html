@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <meta charset="UTF-8">
     <title>Formatted code</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
+<main layout:fragment="content">
     <div class="form-group">
         <h1>Formatted Java code</h1>
         <textarea class="form-control dashed-border non-selectable"
-                 id="formattedCode"
-                 name="formattedCode"
-                 rows="25"
-                 th:text="${formattedCode}"
-                 readonly>
+                  id="formattedCode"
+                  name="formattedCode"
+                  rows="25"
+                  th:text="${formattedCode.getFormattedCode()}"
+                  readonly>
         </textarea>
         <button class="btn btn-primary mt-3" onclick="copyToClipboard()">Copy</button>
     </div>
-</div>
+</main>
 <script>
     function copyToClipboard() {
         const textarea = document.getElementById("formattedCode").value;
